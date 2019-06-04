@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Maria Patrie](https://up.htmlacademy.ru/javascript/17/user/833105).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Рубец] (https://htmlacademy.ru/profile/amator).
 
 ---
 
