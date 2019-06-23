@@ -7,8 +7,8 @@ var MAX_X = 1200;
 var MIN_Y = 130;
 var MAX_Y = 630;
 
-var PIN_WIDTH = 60;
-var PIN_HEIGHT = 60;
+var PIN_WIDTH = 50;
+var PIN_HEIGHT = 70;
 
 var map = document.querySelector('.map');
 var similarPinTemplate = document.querySelector('#pin')
@@ -16,7 +16,16 @@ var similarPinTemplate = document.querySelector('#pin')
     .querySelector('.map__pin');
 var similarListElement = document.querySelector('.map__pins');
 
-// --------------------------- 1 ----------------------------
+var adressArray = [];
+
+var showElement = function (item) {
+  item.classList.remove('map--faded');
+};
+
+var activeMap = function () {
+  showElement(map);
+};
+
 var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
@@ -25,7 +34,7 @@ var getRandomItem = function (array) {
   return array[getRandomInt(0, array.length - 1)];
 };
 
-var getAdress = function (types, minX, maxX, minY, maxY) {
+var getAdresses = function (types, minX, maxX, minY, maxY) {
   var adresses = [];
 
   for (var i = 0; i < ADRESS_COUNT; i++) {
@@ -39,15 +48,7 @@ var getAdress = function (types, minX, maxX, minY, maxY) {
   return adresses;
 };
 
-// --------------------------- 2 ----------------------------
-var mapActive = function () {
-  map.classList.remove('map--faded');
-};
-
-// --------------------------- 3 ----------------------------
-var adressArray = getAdress(TYPES, MIN_X, MAX_X, MIN_Y, MAX_Y);
-
-var renderPin = function (adress) {
+var setPin = function (adress) {
   var pinItem = similarPinTemplate.cloneNode(true);
 
   pinItem.style.left = (adress.location.x - PIN_WIDTH / 2) + 'px';
@@ -58,13 +59,16 @@ var renderPin = function (adress) {
   return pinItem;
 };
 
-// --------------------------- 4 ----------------------------
 var renderPins = function (adress) {
   var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < adress.length; i++) {
-    fragment.appendChild(renderPin(adress[i]));
+    fragment.appendChild(setPin(adress[i]));
   }
 
   similarListElement.appendChild(fragment);
 };
+
+activeMap();
+adressArray = getAdresses(TYPES, MIN_X, MAX_X, MIN_Y, MAX_Y);
+renderPins(adressArray);
