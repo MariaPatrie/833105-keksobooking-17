@@ -16,14 +16,21 @@ var similarPinTemplate = document.querySelector('#pin')
     .querySelector('.map__pin');
 var similarListElement = document.querySelector('.map__pins');
 
+var adForm = document.querySelector('.ad-form');
+var adFieldset = adForm.querySelectorAll('fieldset');
+var mapFiltersForm = document.querySelector('.map__filters');
+var mapSelect = mapFiltersForm.querySelectorAll('select');
+var mapFieldset = mapFiltersForm.querySelectorAll('fieldset');
+var mainMapPin = document.querySelector(' .map__pin--main');
 var adressArray = [];
 
-var showElement = function (item) {
-  item.classList.remove('map--faded');
+var showElement = function (item, className) {
+  item.classList.remove(className);
 };
 
 var activeMap = function () {
-  showElement(map);
+  showElement(map, 'map--faded');
+  showElement(adForm, 'ad-form--disabled');
 };
 
 var getRandomInt = function (min, max) {
@@ -69,6 +76,30 @@ var renderPins = function (adress) {
   similarListElement.appendChild(fragment);
 };
 
-activeMap();
 adressArray = getAdresses(TYPES, MIN_X, MAX_X, MIN_Y, MAX_Y);
-renderPins(adressArray);
+
+var setDisabledAttribute = function (array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].disabled = true;
+  }
+};
+
+var removeDisabledAttribute = function (array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].disabled = false;
+  }
+};
+
+var onPinClick = function () {
+  removeDisabledAttribute(adFieldset);
+  removeDisabledAttribute(mapFieldset);
+  removeDisabledAttribute(mapSelect);
+  activeMap();
+  renderPins(adressArray);
+  mainMapPin.removeEventListener('click', onPinClick);
+};
+
+setDisabledAttribute(adFieldset);
+setDisabledAttribute(mapFieldset);
+setDisabledAttribute(mapSelect);
+mainMapPin.addEventListener('click', onPinClick);
