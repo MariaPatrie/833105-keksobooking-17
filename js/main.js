@@ -17,11 +17,15 @@ var similarPinTemplate = document.querySelector('#pin')
 var similarListElement = document.querySelector('.map__pins');
 
 var adForm = document.querySelector('.ad-form');
-var adFieldset = adForm.querySelectorAll('fieldset');
+var adFieldset = adForm.querySelectorAll('.fieldset');
+var adTypeSelect = document.getElementById('type');
+var adPrice = document.getElementById('price');
+var adTimeIn = document.getElementById('timein');
+var adTimeOut = document.getElementById('timeout');
 var mapFiltersForm = document.querySelector('.map__filters');
-var mapSelect = mapFiltersForm.querySelectorAll('select');
-var mapFieldset = mapFiltersForm.querySelectorAll('fieldset');
-var mainMapPin = document.querySelector(' .map__pin--main');
+var mapSelect = mapFiltersForm.querySelectorAll('.select');
+var mapFieldset = mapFiltersForm.querySelectorAll('.fieldset');
+var mainMapPin = document.querySelector('.map__pin--main');
 var adressArray = [];
 
 var showElement = function (item, className) {
@@ -90,12 +94,41 @@ var removeDisabledAttribute = function (array) {
   }
 };
 
+var onTypeSelect = function () {
+  if (adTypeSelect.value==="bungalo") {
+    adPrice.min = '0';
+    adPrice.placeholder = '0';
+  } else if (adTypeSelect.value==="flat") {
+    adPrice.min = '1000';
+    adPrice.placeholder = '1000';
+  } else if (adTypeSelect.value==="house") {
+    adPrice.min = '5000';
+    adPrice.placeholder = '5000';
+  } else if (adTypeSelect.value==="palace") {
+    adPrice.min = '10000';
+    adPrice.placeholder = '10000';
+  }
+};
+
+var onTimeSelect = function (timeIn, timeOut) {
+  if (timeIn.value==="12:00") {
+    timeOut.options[0].selected = true;
+  } else if (timeIn.value==="13:00") {
+    timeOut.options[1].selected = true;
+  } else if (timeIn.value==="14:00") {
+    timeOut.options[2].selected = true;
+  }
+};
+
 var onPinClick = function () {
   removeDisabledAttribute(adFieldset);
   removeDisabledAttribute(mapFieldset);
   removeDisabledAttribute(mapSelect);
   activeMap();
   renderPins(adressArray);
+  adTypeSelect.addEventListener('change', onTypeSelect);
+  adTimeIn.addEventListener('change', function(){onTimeSelect(adTimeIn, adTimeOut)});
+  adTimeOut.addEventListener('change', function(){onTimeSelect(adTimeOut, adTimeIn)});
   mainMapPin.removeEventListener('click', onPinClick);
 };
 
