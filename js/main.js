@@ -95,27 +95,27 @@ var removeDisabledAttribute = function (array) {
 };
 
 var onTypeSelect = function () {
-  if (adTypeSelect.value === "bungalo") {
+  if (adTypeSelect.value === 'bungalo') {
     adPrice.min = '0';
     adPrice.placeholder = '0';
-  } else if (adTypeSelect.value === "flat") {
+  } else if (adTypeSelect.value === 'flat') {
     adPrice.min = '1000';
     adPrice.placeholder = '1000';
-  } else if (adTypeSelect.value === "house") {
+  } else if (adTypeSelect.value === 'house') {
     adPrice.min = '5000';
     adPrice.placeholder = '5000';
-  } else if (adTypeSelect.value === "palace") {
+  } else if (adTypeSelect.value === 'palace') {
     adPrice.min = '10000';
     adPrice.placeholder = '10000';
   }
 };
 
 var onTimeSelect = function (timeIn, timeOut) {
-  if (timeIn.value === "12:00") {
+  if (timeIn.value === '12:00') {
     timeOut.options[0].selected = true;
-  } else if (timeIn.value === "13:00") {
+  } else if (timeIn.value === '13:00') {
     timeOut.options[1].selected = true;
-  } else if (timeIn.value === "14:00") {
+  } else if (timeIn.value === '14:00') {
     timeOut.options[2].selected = true;
   }
 };
@@ -128,13 +128,11 @@ var onPinClick = function () {
   renderPins(adressArray);
   adTypeSelect.addEventListener('change', onTypeSelect);
   adTimeIn.addEventListener('change', function () {
-    onTimeSelect(adTimeIn, adTimeOut) 
-    }
-  );
+    onTimeSelect(adTimeIn, adTimeOut);
+  });
   adTimeOut.addEventListener('change', function () {
-    onTimeSelect(adTimeOut, adTimeIn)
-    }
-  );
+    onTimeSelect(adTimeOut, adTimeIn);
+  });
   mainMapPin.removeEventListener('click', onPinClick);
 };
 
