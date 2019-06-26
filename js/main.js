@@ -10,6 +10,11 @@ var MAX_Y = 630;
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 
+var PRICE_0 = 0;
+var PRICE_1000 = 1000;
+var PRICE_5000 = 5000;
+var PRICE_10000 = 10000;
+
 var map = document.querySelector('.map');
 var similarPinTemplate = document.querySelector('#pin')
     .content
@@ -94,19 +99,20 @@ var removeDisabledAttribute = function (array) {
   }
 };
 
+var setPrice = function (value) {
+  adPrice.min = value;
+  adPrice.placeholder = value;
+};
+
 var onTypeSelect = function () {
   if (adTypeSelect.value === 'bungalo') {
-    adPrice.min = '0';
-    adPrice.placeholder = '0';
+    setPrice(PRICE_0);
   } else if (adTypeSelect.value === 'flat') {
-    adPrice.min = '1000';
-    adPrice.placeholder = '1000';
+    setPrice(PRICE_1000);
   } else if (adTypeSelect.value === 'house') {
-    adPrice.min = '5000';
-    adPrice.placeholder = '5000';
+    setPrice(PRICE_5000);
   } else if (adTypeSelect.value === 'palace') {
-    adPrice.min = '10000';
-    adPrice.placeholder = '10000';
+    setPrice(PRICE_10000);
   }
 };
 
