@@ -11,11 +11,11 @@ var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 
 var PRICE = {
-  BUNGALO:0,
+  BUNGALO: 0,
   FLAT: 1000,
   HOUSE: 5000,
   PALACE: 10000
-}
+};
 
 var map = document.querySelector('.map');
 var similarPinTemplate = document.querySelector('#pin')
