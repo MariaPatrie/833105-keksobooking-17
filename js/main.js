@@ -10,10 +10,12 @@ var MAX_Y = 630;
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 
-var PRICE_0 = 0;
-var PRICE_1000 = 1000;
-var PRICE_5000 = 5000;
-var PRICE_10000 = 10000;
+var PRICE = {
+  BUNGALO:0,
+  FLAT: 1000,
+  HOUSE: 5000,
+  PALACE: 10000
+}
 
 var map = document.querySelector('.map');
 var similarPinTemplate = document.querySelector('#pin')
@@ -106,13 +108,13 @@ var setPrice = function (value) {
 
 var onTypeSelect = function () {
   if (adTypeSelect.value === 'bungalo') {
-    setPrice(PRICE_0);
+    setPrice(PRICE.BUNGALO);
   } else if (adTypeSelect.value === 'flat') {
-    setPrice(PRICE_1000);
+    setPrice(PRICE.FLAT);
   } else if (adTypeSelect.value === 'house') {
-    setPrice(PRICE_5000);
+    setPrice(PRICE.HOUSE);
   } else if (adTypeSelect.value === 'palace') {
-    setPrice(PRICE_10000);
+    setPrice(PRICE.PALACE);
   }
 };
 
