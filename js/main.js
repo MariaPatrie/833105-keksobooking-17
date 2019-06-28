@@ -3,12 +3,15 @@
 var ADRESS_COUNT = 8;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var MIN_X = 0;
-var MAX_X = 1200;
+var MAX_X = document.querySelector('.map').offsetWidth; //1200;
 var MIN_Y = 130;
 var MAX_Y = 630;
 
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
+
+var MAIN_PIN_SIZE = 65;
+var MAIN_PIN_TAIL = 22;
 
 var PRICE = {
   BUNGALO: 0,
@@ -25,6 +28,7 @@ var similarListElement = document.querySelector('.map__pins');
 
 var adForm = document.querySelector('.ad-form');
 var adFieldset = adForm.querySelectorAll('.fieldset');
+var addressInput = adForm.querySelector('#address');
 var adTypeSelect = document.getElementById('type');
 var adPrice = document.getElementById('price');
 var adTimeIn = document.getElementById('timein');
@@ -32,7 +36,7 @@ var adTimeOut = document.getElementById('timeout');
 var mapFiltersForm = document.querySelector('.map__filters');
 var mapSelect = mapFiltersForm.querySelectorAll('.select');
 var mapFieldset = mapFiltersForm.querySelectorAll('.fieldset');
-var mainMapPin = document.querySelector('.map__pin--main');
+var mapMainPin = document.querySelector('.map__pin--main');
 var adressArray = [];
 
 var showElement = function (item, className) {
@@ -128,7 +132,7 @@ var onTimeSelect = function (timeIn, timeOut) {
   }
 };
 
-var onPinClick = function () {
+/*var onPinClick = function () {
   removeDisabledAttribute(adFieldset);
   removeDisabledAttribute(mapFieldset);
   removeDisabledAttribute(mapSelect);
@@ -142,9 +146,86 @@ var onPinClick = function () {
     onTimeSelect(adTimeOut, adTimeIn);
   });
   mainMapPin.removeEventListener('click', onPinClick);
+};*/
+
+var getElementCoords = function (item, width, height) {
+
+  return Math.round((item.offsetLeft + width / 2)) +
+  ', ' + Math.round((item.offsetTop + height));
+};
+
+var onMouseDown = function (evt) {
+  evt.preventDefault();
+
+  activeMap();
+
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+  var onMouseMove = function (evt) {
+    evt.preventDefault();
+
+    var shift = {
+      x: startCoords.x - evt.clientX,
+      y: startCoords.y - evt.clientY
+    };
+
+    startCoords = {
+      x: evt.clientX,
+      y: evt.clientY
+    };
+
+    var mapMainPinTop = (mapMainPin.offsetTop - shift.y);
+    var mapMainPinLeft = (mapMainPin.offsetLeft - shift.x);
+
+/*    mapMainPin.style.top = (mapMainPin.offsetTop - shift.y) + 'px';
+    mapMainPin.style.left = (mapMainPin.offsetLeft - shift.x) + 'px';*/
+    if (mapMainPinTop >= MIN_Y && mapMainPinTop <= (MAX_Y - MAIN_PIN_SIZE)) {
+      mapMainPin.style.top = mapMainPinTop + 'px';
+    } else if (mapMainPinTop < MIN_Y) {
+      mapMainPin.style.top = MIN_Y + 'px';
+    } else if (mapMainPinTop > (MAX_Y - MAIN_PIN_SIZE)) {
+      mapMainPin.style.top = (MAX_Y - MAIN_PIN_SIZE) + 'px';
+    }
+
+    if (mapMainPinLeft >= MIN_X && mapMainPinLeft <= (MAX_X - MAIN_PIN_SIZE)) {
+      mapMainPin.style.left = mapMainPinLeft + 'px';
+    } else if (mapMainPinLeft < MIN_X) {
+      mapMainPin.style.left = MIN_X + 'px';
+    } else if (mapMainPinLeft > (MAX_X - MAIN_PIN_SIZE)) {
+      mapMainPin.style.left = (MAX_X - MAIN_PIN_SIZE) + 'px';
+    }
+
+    addressInput.value = getElementCoords(mapMainPin, MAIN_PIN_SIZE, (MAIN_PIN_SIZE + MAIN_PIN_TAIL));
+  };
+
+  var onMouseUp = function () {
+    removeDisabledAttribute(adFieldset);
+    removeDisabledAttribute(mapFieldset);
+    removeDisabledAttribute(mapSelect);
+    renderPins(adressArray);
+    adTypeSelect.addEventListener('change', onTypeSelect);
+    adTimeIn.addEventListener('change', function () {
+      onTimeSelect(adTimeIn, adTimeOut);
+    });
+    adTimeOut.addEventListener('change', function () {
+      onTimeSelect(adTimeOut, adTimeIn);
+    });
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+
+    addressInput.value = getElementCoords(mapMainPin, MAIN_PIN_SIZE, (MAIN_PIN_SIZE + MAIN_PIN_TAIL));
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
 };
 
 setDisabledAttribute(adFieldset);
 setDisabledAttribute(mapFieldset);
 setDisabledAttribute(mapSelect);
-mainMapPin.addEventListener('click', onPinClick);
+//mapMainPin.addEventListener('click', onPinClick);
+mapMainPin.addEventListener('mousedown', onMouseDown);
