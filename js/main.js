@@ -3,7 +3,7 @@
 var ADRESS_COUNT = 8;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var MIN_X = 0;
-var MAX_X = document.querySelector('.map').offsetWidth; //1200;
+var MAX_X = document.querySelector('.map').offsetWidth; // 1200;
 var MIN_Y = 130;
 var MAX_Y = 630;
 
@@ -132,7 +132,7 @@ var onTimeSelect = function (timeIn, timeOut) {
   }
 };
 
-/*var onPinClick = function () {
+/* var onPinClick = function () {
   removeDisabledAttribute(adFieldset);
   removeDisabledAttribute(mapFieldset);
   removeDisabledAttribute(mapSelect);
@@ -164,23 +164,23 @@ var onMouseDown = function (evt) {
     y: evt.clientY
   };
 
-  var onMouseMove = function (evt) {
-    evt.preventDefault();
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
 
     var shift = {
-      x: startCoords.x - evt.clientX,
-      y: startCoords.y - evt.clientY
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
     };
 
     startCoords = {
-      x: evt.clientX,
-      y: evt.clientY
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
     };
 
     var mapMainPinTop = (mapMainPin.offsetTop - shift.y);
     var mapMainPinLeft = (mapMainPin.offsetLeft - shift.x);
 
-/*    mapMainPin.style.top = (mapMainPin.offsetTop - shift.y) + 'px';
+    /* mapMainPin.style.top = (mapMainPin.offsetTop - shift.y) + 'px';
     mapMainPin.style.left = (mapMainPin.offsetLeft - shift.x) + 'px';*/
     if (mapMainPinTop >= MIN_Y && mapMainPinTop <= (MAX_Y - MAIN_PIN_SIZE)) {
       mapMainPin.style.top = mapMainPinTop + 'px';
@@ -227,5 +227,5 @@ var onMouseDown = function (evt) {
 setDisabledAttribute(adFieldset);
 setDisabledAttribute(mapFieldset);
 setDisabledAttribute(mapSelect);
-//mapMainPin.addEventListener('click', onPinClick);
+// mapMainPin.addEventListener('click', onPinClick);
 mapMainPin.addEventListener('mousedown', onMouseDown);
