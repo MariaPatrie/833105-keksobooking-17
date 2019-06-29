@@ -182,10 +182,10 @@ var onMouseDown = function (evt) {
 
     /* mapMainPin.style.top = (mapMainPin.offsetTop - shift.y) + 'px';
     mapMainPin.style.left = (mapMainPin.offsetLeft - shift.x) + 'px';*/
-    if (mapMainPinTop >= MIN_Y && mapMainPinTop <= (MAX_Y - MAIN_PIN_SIZE)) {
+    if (mapMainPinTop >= (MIN_Y - MAIN_PIN_SIZE) && mapMainPinTop <= (MAX_Y - MAIN_PIN_SIZE)) {
       mapMainPin.style.top = mapMainPinTop + 'px';
     } else if (mapMainPinTop < MIN_Y) {
-      mapMainPin.style.top = MIN_Y + 'px';
+      mapMainPin.style.top = (MIN_Y - MAIN_PIN_SIZE) + 'px';
     } else if (mapMainPinTop > (MAX_Y - MAIN_PIN_SIZE)) {
       mapMainPin.style.top = (MAX_Y - MAIN_PIN_SIZE) + 'px';
     }
