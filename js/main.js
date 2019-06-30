@@ -140,23 +140,27 @@ var getElementCoords = function (item, width, height) {
 };
 
 var setTopCoords = function (position) {
+  var coodsY;
   if (position >= (MIN_Y - MAIN_PIN_SIZE) && position <= (MAX_Y - MAIN_PIN_SIZE - MAIN_PIN_TAIL)) {
-    return position;
+    coodsY = position + 'px';
   } else if (position < MIN_Y) {
-    return (MIN_Y - MAIN_PIN_SIZE - MAIN_PIN_TAIL);
+    coodsY = (MIN_Y - MAIN_PIN_SIZE - MAIN_PIN_TAIL) + 'px';
   } else if (position > (MAX_Y)) {
-    return (MAX_Y - MAIN_PIN_SIZE);
+    coodsY = (MAX_Y - MAIN_PIN_SIZE) + 'px';
   }
+  return coodsY;
 };
 
 var setLeftCoords = function (position) {
+  var coodsX;
   if (position >= MIN_X && position <= (MAX_X - MAIN_PIN_SIZE)) {
-    return position;
+    coodsX = position + 'px';
   } else if (position < MIN_X) {
-    return MIN_X;
+    coodsX = MIN_X + 'px';
   } else if (position > (MAX_X - MAIN_PIN_SIZE)) {
-    return (MAX_X - MAIN_PIN_SIZE);
+    coodsX = (MAX_X - MAIN_PIN_SIZE) + 'px';
   }
+  return coodsX;
 };
 
 var onMouseDown = function (evt) {
@@ -185,8 +189,8 @@ var onMouseDown = function (evt) {
     var mapMainPinTop = (mapMainPin.offsetTop - shift.y);
     var mapMainPinLeft = (mapMainPin.offsetLeft - shift.x);
 
-    mapMainPin.style.top = setTopCoords(mapMainPinTop) + 'px';
-    mapMainPin.style.left = setLeftCoords(mapMainPinLeft) + 'px';
+    mapMainPin.style.top = setTopCoords(mapMainPinTop);
+    mapMainPin.style.left = setLeftCoords(mapMainPinLeft);
 
     addressInput.value = getElementCoords(mapMainPin, MAIN_PIN_SIZE, (MAIN_PIN_SIZE + MAIN_PIN_TAIL));
   };
