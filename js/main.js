@@ -22,7 +22,6 @@ var PRICE = {
   PALACE: 10000
 };
 
-var map = document.querySelector('.map');
 var similarPinTemplate = document.querySelector('#pin')
     .content
     .querySelector('.map__pin');
@@ -142,23 +141,23 @@ var getElementCoords = function (item, width, height) {
 
 var setTopCoords = function (position) {
   if (position >= (MIN_Y - MAIN_PIN_SIZE) && position <= (MAX_Y - MAIN_PIN_SIZE - MAIN_PIN_TAIL)) {
-    return position + 'px';
+    return position;
   } else if (position < MIN_Y) {
-    return (MIN_Y - MAIN_PIN_SIZE - MAIN_PIN_TAIL) + 'px';
+    return (MIN_Y - MAIN_PIN_SIZE - MAIN_PIN_TAIL);
   } else if (position > (MAX_Y)) {
-    return (MAX_Y - MAIN_PIN_SIZE) + 'px';
+    return (MAX_Y - MAIN_PIN_SIZE);
   }
-}
+};
 
 var setLeftCoords = function (position) {
   if (position >= MIN_X && position <= (MAX_X - MAIN_PIN_SIZE)) {
-    return position + 'px';
+    return position;
   } else if (position < MIN_X) {
-    return MIN_X + 'px';
+    return MIN_X;
   } else if (position > (MAX_X - MAIN_PIN_SIZE)) {
-    return (MAX_X - MAIN_PIN_SIZE) + 'px';
+    return (MAX_X - MAIN_PIN_SIZE);
   }
-}
+};
 
 var onMouseDown = function (evt) {
   evt.preventDefault();
@@ -186,8 +185,8 @@ var onMouseDown = function (evt) {
     var mapMainPinTop = (mapMainPin.offsetTop - shift.y);
     var mapMainPinLeft = (mapMainPin.offsetLeft - shift.x);
 
-    mapMainPin.style.top = setTopCoords(mapMainPinTop);
-    mapMainPin.style.left = setLeftCoords(mapMainPinLeft);
+    mapMainPin.style.top = setTopCoords(mapMainPinTop) + 'px';
+    mapMainPin.style.left = setLeftCoords(mapMainPinLeft) + 'px';
 
     addressInput.value = getElementCoords(mapMainPin, MAIN_PIN_SIZE, (MAIN_PIN_SIZE + MAIN_PIN_TAIL));
   };
