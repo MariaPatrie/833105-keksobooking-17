@@ -10,12 +10,11 @@
   var TYPES = ['palace', 'flat', 'house', 'bungalo'];
   var map = document.querySelector('.map');
   var DEFAULT_MAP_WIDTH = 1200;
-  MAX_X = map ? map.offsetWidth : DEFAULT_MAP_WIDTH;
-  MIN_X = 0;
-  MIN_Y = 130;
-  MAX_Y = 630;
+  var MAX_X = map ? map.offsetWidth : DEFAULT_MAP_WIDTH;
+  var MIN_X = 0;
+  var MIN_Y = 130;
+  var MAX_Y = 630;
 
-  var map = document.querySelector('.map');
   var similarPinTemplate = document.querySelector('#pin')
       .content
       .querySelector('.map__pin');
