@@ -33,10 +33,6 @@
 
   var isActive = false;
 
-  window.showElement = function (item, className) {
-    item.classList.remove(className);
-  };
-
   var activeMap = function () {
     window.showElement(map, 'map--faded');
     window.showElement(adForm, 'ad-form--disabled');
@@ -131,15 +127,15 @@
     };
 
     var onMouseUp = function () {
-      window.removeDisabledAttribute(adFieldset);
-      window.removeDisabledAttribute(mapFieldset);
-      window.removeDisabledAttribute(mapSelect);
-      adTypeSelect.addEventListener('change', window.onTypeSelect);
+      window.dialogForm.removeDisabledAttribute(adFieldset);
+      window.dialogForm.removeDisabledAttribute(mapFieldset);
+      window.dialogForm.removeDisabledAttribute(mapSelect);
+      adTypeSelect.addEventListener('change', window.dialogForm.onTypeSelect);
       adTimeIn.addEventListener('change', function () {
-        window.onTimeSelect(adTimeIn, adTimeOut);
+        window.dialogForm.onTimeSelect(adTimeIn, adTimeOut);
       });
       adTimeOut.addEventListener('change', function () {
-        window.onTimeSelect(adTimeOut, adTimeIn);
+        window.dialogForm.onTimeSelect(adTimeOut, adTimeIn);
       });
 
       document.removeEventListener('mousemove', onMouseMove);
