@@ -13,5 +13,5 @@
       return array[this.getRandomInt(0, array.length - 1)];
     }
   };
-  
+
 })();
