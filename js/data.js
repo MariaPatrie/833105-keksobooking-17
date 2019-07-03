@@ -4,14 +4,6 @@
 
   var ADRESS_COUNT = 8;
 
-  var getRandomInt = function (min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  };
-
-  var getRandomItem = function (array) {
-    return array[getRandomInt(0, array.length - 1)];
-  };
-
   window.getAdresses = function (types, minX, maxX, minY, maxY) {
     var adresses = [];
 
@@ -21,11 +13,11 @@
           avatar: 'img/avatars/user' + '0' + (i + 1) + '.png'
         },
         offer: {
-          type: getRandomItem(types)
+          type: window.utils.getRandomItem(types)
         },
         location: {
-          x: getRandomInt(minX, maxX),
-          y: getRandomInt(minY, maxY)
+          x: window.utils.getRandomInt(minX, maxX),
+          y: window.utils.getRandomInt(minY, maxY)
         }
       };
     }

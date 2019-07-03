@@ -8,13 +8,13 @@
   var MAIN_PIN_TAIL = 22;
 
   var TYPES = ['palace', 'flat', 'house', 'bungalo'];
-  var map = document.querySelector('.map');
   var DEFAULT_MAP_WIDTH = 1200;
   var MAX_X = map ? map.offsetWidth : DEFAULT_MAP_WIDTH;
   var MIN_X = 0;
   var MIN_Y = 130;
   var MAX_Y = 630;
 
+  var map = document.querySelector('.map');
   var similarPinTemplate = document.querySelector('#pin')
       .content
       .querySelector('.map__pin');
@@ -34,8 +34,8 @@
   var isActive = false;
 
   var activeMap = function () {
-    window.showElement(map, 'map--faded');
-    window.showElement(adForm, 'ad-form--disabled');
+    window.utils.showElement(map, 'map--faded');
+    window.utils.showElement(adForm, 'ad-form--disabled');
   };
 
   var setPin = function (adress) {
