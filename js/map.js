@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var ADRESS_COUNT = 8;
+
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
 
@@ -13,6 +15,8 @@
   var MIN_X = 0;
   var MIN_Y = 130;
   var MAX_Y = 630;
+
+  var urlGet = 'https://js.dump.academy/keksobooking';
 
   var map = document.querySelector('.map');
   var similarPinTemplate = document.querySelector('#pin')
@@ -49,15 +53,21 @@
     return pinItem;
   };
 
-  var renderPins = function (adress) {
+  var getFragment = function (adress) {
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < adress.length; i++) {
       fragment.appendChild(setPin(adress[i]));
     }
 
-    similarListElement.appendChild(fragment);
+    return fragment;
   };
+
+  var renderPins = function (adress) {
+    similarListElement.appendChild(getFragment(adress));
+  };
+
+  window.backend.load(urlGet, renderPins(), window.message.showError());
 
   var getElementCoords = function (item, width, height) {
 
@@ -93,9 +103,9 @@
     evt.preventDefault();
 
     if (!isActive) {
-      var adressArray = window.getAdresses(TYPES, MIN_X, MAX_X, MIN_Y, MAX_Y);
+      //var adressArray = window.getAdresses(TYPES, MIN_X, MAX_X, MIN_Y, MAX_Y);
       activeMap();
-      renderPins(adressArray);
+      renderPins();
       isActive = true;
     }
 

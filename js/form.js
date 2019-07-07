@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var urlPost = 'https://js.dump.academy/keksobooking/data';
 
   var PRICE = {
     BUNGALO: 0,
@@ -64,5 +65,18 @@
   };
 
   disableForm();
+
+  var onLoadHandler = function () {
+    window.message.showSuccess();
+  };
+
+  var onErrorHandler = function () {
+    window.message.showError();
+  };
+
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.upload(urlPost, new FormData(adForm), onLoadHandler, onErrorHandler);
+  });
 
 })();
