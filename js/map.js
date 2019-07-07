@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var ADRESS_COUNT = 8;
+//  var ADRESS_COUNT = 8;
 
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
@@ -9,7 +9,7 @@
   var MAIN_PIN_SIZE = 65;
   var MAIN_PIN_TAIL = 22;
 
-  var TYPES = ['palace', 'flat', 'house', 'bungalo'];
+//  var TYPES = ['palace', 'flat', 'house', 'bungalo'];
   var DEFAULT_MAP_WIDTH = 1200;
   var MAX_X = map ? map.offsetWidth : DEFAULT_MAP_WIDTH;
   var MIN_X = 0;
@@ -103,7 +103,7 @@
     evt.preventDefault();
 
     if (!isActive) {
-      //var adressArray = window.getAdresses(TYPES, MIN_X, MAX_X, MIN_Y, MAX_Y);
+      // var adressArray = window.getAdresses(TYPES, MIN_X, MAX_X, MIN_Y, MAX_Y);
       activeMap();
       renderPins();
       isActive = true;
