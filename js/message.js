@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var main = document.querySelector('.main');
+  var main = document.querySelector('main');
   var successPageTemplate = document.querySelector('#success')
       .content
       .querySelector('.success');

@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  //  var ADRESS_COUNT = 8;
-
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
 
@@ -11,7 +9,6 @@
 
   //  var TYPES = ['palace', 'flat', 'house', 'bungalo'];
   var DEFAULT_MAP_WIDTH = 1200;
-  var MAX_X = map ? map.offsetWidth : DEFAULT_MAP_WIDTH;
   var MIN_X = 0;
   var MIN_Y = 130;
   var MAX_Y = 630;
@@ -19,6 +16,7 @@
   var urlGet = 'https://js.dump.academy/keksobooking';
 
   var map = document.querySelector('.map');
+  var maxWidth = map ? map.offsetWidth : DEFAULT_MAP_WIDTH;
   var similarPinTemplate = document.querySelector('#pin')
       .content
       .querySelector('.map__pin');
@@ -53,21 +51,17 @@
     return pinItem;
   };
 
-  var getFragment = function (adress) {
+  var renderPins = function (adress) {
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < adress.length; i++) {
       fragment.appendChild(setPin(adress[i]));
     }
 
-    return fragment;
+    similarListElement.appendChild(fragment);
   };
 
-  var renderPins = function (adress) {
-    similarListElement.appendChild(getFragment(adress));
-  };
-
-  window.backend.load(urlGet, renderPins(), window.message.showError());
+  window.backend.load(urlGet, renderPins, window.message.showError);
 
   var getElementCoords = function (item, width, height) {
 
@@ -89,12 +83,12 @@
 
   var setLeftCoords = function (position) {
     var coodsX;
-    if (position >= MIN_X && position <= (MAX_X - MAIN_PIN_SIZE)) {
+    if (position >= MIN_X && position <= (maxWidth - MAIN_PIN_SIZE)) {
       coodsX = position + 'px';
     } else if (position < MIN_X) {
       coodsX = MIN_X + 'px';
-    } else if (position > (MAX_X - MAIN_PIN_SIZE)) {
-      coodsX = (MAX_X - MAIN_PIN_SIZE) + 'px';
+    } else if (position > (maxWidth - MAIN_PIN_SIZE)) {
+      coodsX = (maxWidth - MAIN_PIN_SIZE) + 'px';
     }
     return coodsX;
   };
