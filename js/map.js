@@ -13,7 +13,7 @@
   var MIN_Y = 130;
   var MAX_Y = 630;
 
-  var urlGet = 'https://js.dump.academy/keksobooking';
+  var urlGet = 'https://js.dump.academy/keksobooking/data';
 
   var map = document.querySelector('.map');
   var maxWidth = map ? map.offsetWidth : DEFAULT_MAP_WIDTH;
@@ -61,8 +61,6 @@
     similarListElement.appendChild(fragment);
   };
 
-  window.backend.load(urlGet, renderPins, window.message.showError);
-
   var getElementCoords = function (item, width, height) {
 
     return Math.round((item.offsetLeft + width / 2)) +
@@ -99,7 +97,8 @@
     if (!isActive) {
       // var adressArray = window.getAdresses(TYPES, MIN_X, MAX_X, MIN_Y, MAX_Y);
       activeMap();
-      renderPins();
+      //renderPins();
+      window.backend.load(urlGet, renderPins, window.message.showError);
       isActive = true;
     }
 

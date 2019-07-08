@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var urlPost = 'https://js.dump.academy/keksobooking/data';
+  var urlPost = 'https://js.dump.academy/keksobooking';
 
   var PRICE = {
     BUNGALO: 0,
