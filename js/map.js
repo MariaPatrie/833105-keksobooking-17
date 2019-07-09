@@ -97,7 +97,7 @@
     if (!isActive) {
       // var adressArray = window.getAdresses(TYPES, MIN_X, MAX_X, MIN_Y, MAX_Y);
       activeMap();
-      //renderPins();
+      // renderPins();
       window.backend.load(urlGet, renderPins, window.message.showError);
       isActive = true;
     }
