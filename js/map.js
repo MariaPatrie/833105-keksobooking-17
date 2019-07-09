@@ -7,14 +7,16 @@
   var MAIN_PIN_SIZE = 65;
   var MAIN_PIN_TAIL = 22;
 
-  var TYPES = ['palace', 'flat', 'house', 'bungalo'];
+  //  var TYPES = ['palace', 'flat', 'house', 'bungalo'];
   var DEFAULT_MAP_WIDTH = 1200;
-  var MAX_X = map ? map.offsetWidth : DEFAULT_MAP_WIDTH;
   var MIN_X = 0;
   var MIN_Y = 130;
   var MAX_Y = 630;
 
+  var urlGet = 'https://js.dump.academy/keksobooking/data';
+
   var map = document.querySelector('.map');
+  var maxWidth = map ? map.offsetWidth : DEFAULT_MAP_WIDTH;
   var similarPinTemplate = document.querySelector('#pin')
       .content
       .querySelector('.map__pin');
@@ -79,12 +81,12 @@
 
   var setLeftCoords = function (position) {
     var coodsX;
-    if (position >= MIN_X && position <= (MAX_X - MAIN_PIN_SIZE)) {
+    if (position >= MIN_X && position <= (maxWidth - MAIN_PIN_SIZE)) {
       coodsX = position + 'px';
     } else if (position < MIN_X) {
       coodsX = MIN_X + 'px';
-    } else if (position > (MAX_X - MAIN_PIN_SIZE)) {
-      coodsX = (MAX_X - MAIN_PIN_SIZE) + 'px';
+    } else if (position > (maxWidth - MAIN_PIN_SIZE)) {
+      coodsX = (maxWidth - MAIN_PIN_SIZE) + 'px';
     }
     return coodsX;
   };
@@ -93,9 +95,10 @@
     evt.preventDefault();
 
     if (!isActive) {
-      var adressArray = window.getAdresses(TYPES, MIN_X, MAX_X, MIN_Y, MAX_Y);
+      // var adressArray = window.getAdresses(TYPES, MIN_X, MAX_X, MIN_Y, MAX_Y);
       activeMap();
-      renderPins(adressArray);
+      // renderPins();
+      window.backend.load(urlGet, renderPins, window.message.showError);
       isActive = true;
     }
 
