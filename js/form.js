@@ -61,6 +61,20 @@
       } else if (timeIn.value === '14:00') {
         timeOut.options[2].selected = true;
       }
+    },
+    onHousingTypeSelect: function (array, housingType, count) {
+      var filteredArray = array.slice();
+
+      if (housingType !== 'any') {
+        filteredArray = filteredArray.filter(function (it) {
+          return it.offer.type === housingType;
+        });
+      }
+      if (count >= 0) {
+        filteredArray = filteredArray.slice(0, count);
+      }
+
+      return filteredArray;
     }
   };
 

@@ -1,13 +1,14 @@
 'use strict';
 
 (function () {
+  var ADRESS_COUNT = 5;
+
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
 
   var MAIN_PIN_SIZE = 65;
   var MAIN_PIN_TAIL = 22;
 
-  //  var TYPES = ['palace', 'flat', 'house', 'bungalo'];
   var DEFAULT_MAP_WIDTH = 1200;
   var MIN_X = 0;
   var MIN_Y = 130;
@@ -25,6 +26,7 @@
   var adTypeSelect = document.getElementById('type');
   var adTimeIn = document.getElementById('timein');
   var adTimeOut = document.getElementById('timeout');
+  var adHousingTypeSelector = document.getElementById('housing-type');
 
   var adForm = document.querySelector('.ad-form');
   var adFieldset = adForm.querySelectorAll('.fieldset');
@@ -34,6 +36,7 @@
   var addressInput = adForm.querySelector('#address');
 
   var isActive = false;
+  var adresses = [];
 
   var activeMap = function () {
     window.utils.showElement(map, 'map--faded');
@@ -54,7 +57,8 @@
   var renderPins = function (adress) {
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < adress.length; i++) {
+    var count = adress.length > ADRESS_COUNT ? ADRESS_COUNT : adress.length;
+    for (var i = 0; i < count; i++) {
       fragment.appendChild(setPin(adress[i]));
     }
 
@@ -91,14 +95,32 @@
     return coodsX;
   };
 
+  var clearMapPins = function () {
+    var pins = similarListElement.querySelectorAll('.map__pin');
+    pins.forEach(function (pinElement) {
+      if (pinElement !== mapMainPin) {
+        similarListElement.removeChild(pinElement);
+      }
+    });
+  };
+
+  var onChangeHousingTypeFilter = function () {
+    var filteredAdresses = window.dialogForm.onHousingTypeSelect(adresses, adHousingTypeSelector.value, ADRESS_COUNT);
+    clearMapPins();
+    renderPins(filteredAdresses);
+  };
+
+  var onLoadHandler = function (array) {
+    adresses = array;
+    renderPins(array);
+  };
+
   mapMainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
     if (!isActive) {
-      // var adressArray = window.getAdresses(TYPES, MIN_X, MAX_X, MIN_Y, MAX_Y);
       activeMap();
-      // renderPins();
-      window.backend.load(urlGet, renderPins, window.message.showError);
+      window.backend.load(urlGet, onLoadHandler, window.message.showError);
       isActive = true;
     }
 
@@ -140,7 +162,7 @@
       adTimeOut.addEventListener('change', function () {
         window.dialogForm.onTimeSelect(adTimeOut, adTimeIn);
       });
-
+      adHousingTypeSelector.addEventListener('change', onChangeHousingTypeFilter);
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
 

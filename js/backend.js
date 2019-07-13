@@ -2,6 +2,7 @@
 
 (function () {
   var STATUS_OK = 200;
+  var TIMEOUT = 10000;
 
   window.backend = {
     upload: function (url, data, onLoad, onError) {
@@ -12,7 +13,7 @@
 
     load: function (url, onLoad, onError) {
       var xhr = createRequest(onLoad, onError);
-      xhr.timeout = 10000;
+      xhr.timeout = TIMEOUT;
       xhr.open('GET', url);
       xhr.send();
     }
