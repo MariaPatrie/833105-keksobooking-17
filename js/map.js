@@ -30,7 +30,8 @@
 
   var adForm = document.querySelector('.ad-form');
   var adFieldset = adForm.querySelectorAll('.fieldset');
-  var mapFiltersForm = document.querySelector('.map__filters');
+  var mapFiltersContainer = document.querySelector('.map__filters-container');
+  var mapFiltersForm = mapFiltersContainer.querySelector('.map__filters');
   var mapSelect = mapFiltersForm.querySelectorAll('.select');
   var mapFieldset = mapFiltersForm.querySelectorAll('.fieldset');
   var addressInput = adForm.querySelector('#address');
@@ -61,6 +62,9 @@
     for (var i = 0; i < count; i++) {
       fragment.appendChild(setPin(adress[i]));
     }
+
+    var card = window.card.render(adress[0]);
+    map.insertBefore(card, mapFiltersContainer);
 
     similarListElement.appendChild(fragment);
   };
