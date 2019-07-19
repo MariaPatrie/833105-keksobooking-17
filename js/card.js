@@ -24,7 +24,7 @@
       var dopClass = 'popup__feature--' + array[i];
       feature.classList.add(dopClass);
       fragment.appendChild(feature);
-    };
+    }
 
     return fragment;
   };
@@ -38,7 +38,7 @@
       photo.width = '40';
       photo.height = '40';
       fragment.appendChild(photo);
-    };
+    }
 
     return fragment;
   };
