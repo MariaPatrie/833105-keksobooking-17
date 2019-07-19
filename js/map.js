@@ -30,8 +30,7 @@
 
   var adForm = document.querySelector('.ad-form');
   var adFieldset = adForm.querySelectorAll('.fieldset');
-  var mapFiltersContainer = document.querySelector('.map__filters-container');
-  var mapFiltersForm = mapFiltersContainer.querySelector('.map__filters');
+  var mapFiltersForm = document.querySelector('.map__filters');
   var mapSelect = mapFiltersForm.querySelectorAll('.select');
   var mapFieldset = mapFiltersForm.querySelectorAll('.fieldset');
   var addressInput = adForm.querySelector('#address');
@@ -44,6 +43,14 @@
     window.utils.showElement(adForm, 'ad-form--disabled');
   };
 
+  var pinListener = function (item, adress) {
+    item.addEventListener('click', function () {
+      window.card.remove();
+      item.classList.add('map__pin--active');
+      window.card.showCard(adress);
+    });
+  };
+
   var setPin = function (adress) {
     var pinItem = similarPinTemplate.cloneNode(true);
 
@@ -51,6 +58,8 @@
     pinItem.style.top = (adress.location.y - PIN_HEIGHT) + 'px';
     pinItem.querySelector('img').src = adress.author.avatar;
     pinItem.querySelector('img').alt = adress.offer.type;
+
+    pinListener(pinItem, adress);
 
     return pinItem;
   };
@@ -62,9 +71,6 @@
     for (var i = 0; i < count; i++) {
       fragment.appendChild(setPin(adress[i]));
     }
-
-    var card = window.card.render(adress[0]);
-    map.insertBefore(card, mapFiltersContainer);
 
     similarListElement.appendChild(fragment);
   };
