@@ -88,12 +88,7 @@
       var optionsGuests = adGuests.querySelectorAll('option');
 
       optionsGuests.forEach(function (option) {
-        if (countGuests.indexOf(option.value) === -1) {
-          option.disabled = true;
-        }
-        else {
-          option.disabled = false;
-        }
+        option.disabled = countGuests.indexOf(option.value) === -1;
       });
 
       if (countGuests.indexOf(adGuests.value) === -1) {
@@ -104,7 +99,7 @@
         if (countGuests.indexOf(adGuests.value) !== -1) {
           adGuests.setCustomValidity('');
         }
-      })
+      });
     }
   };
 
