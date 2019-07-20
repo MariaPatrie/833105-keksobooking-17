@@ -10,6 +10,13 @@
     PALACE: 10000
   };
 
+  var GuestsByRoom = {
+    1: ['1'],
+    2: ['1', '2'],
+    3: ['1', '2', '3'],
+    100: ['0']
+  };
+
   var adForm = document.querySelector('.ad-form');
   var adFieldset = adForm.querySelectorAll('.fieldset');
   var mapFiltersForm = document.querySelector('.map__filters');
@@ -75,6 +82,29 @@
       }
 
       return filteredArray;
+    },
+    onRoomsGuestsSelect: function (adGuests, roomsValue) {
+      var countGuests = GuestsByRoom[roomsValue];
+      var optionsGuests = adGuests.querySelectorAll('option');
+
+      optionsGuests.forEach(function (option) {
+        if (countGuests.indexOf(option.value) === -1) {
+          option.disabled = true;
+        }
+        else {
+          option.disabled = false;
+        }
+      });
+
+      if (countGuests.indexOf(adGuests.value) === -1) {
+        adGuests.setCustomValidity('Укажите другое количество гостей');
+      }
+
+      adGuests.addEventListener('change', function () {
+        if (countGuests.indexOf(adGuests.value) !== -1) {
+          adGuests.setCustomValidity('');
+        }
+      })
     }
   };
 

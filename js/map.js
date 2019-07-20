@@ -27,6 +27,8 @@
   var adTimeIn = document.getElementById('timein');
   var adTimeOut = document.getElementById('timeout');
   var adHousingTypeSelector = document.getElementById('housing-type');
+  var adRooms = document.getElementById('room_number');
+  var adGuests = document.getElementById('capacity');
 
   var adForm = document.querySelector('.ad-form');
   var adFieldset = adForm.querySelectorAll('.fieldset');
@@ -171,6 +173,9 @@
       });
       adTimeOut.addEventListener('change', function () {
         window.dialogForm.onTimeSelect(adTimeOut, adTimeIn);
+      });
+      adRooms.addEventListener('change', function () {
+        window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
       });
       adHousingTypeSelector.addEventListener('change', onChangeHousingTypeFilter);
       document.removeEventListener('mousemove', onMouseMove);
