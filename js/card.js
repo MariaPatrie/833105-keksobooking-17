@@ -2,6 +2,7 @@
 
 (function () {
 
+  var ESC_KEYCODE = 27;
   var PLACEMENT_TYPE = {
     BUNGALO: 'Бунгало',
     FLAT: 'Квартира',
@@ -9,9 +10,49 @@
     PALACE: 'Дворец'
   };
 
+  var map = document.querySelector('.map');
+  var mapFiltersContainer = document.querySelector('.map__filters-container');
   var similarCardTemplate = document.querySelector('#card')
     .content
     .querySelector('.map__card');
+
+  var setFeatures = function (array) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < array.lenght; i++) {
+      var feature = document.createElement('li');
+      feature.classList.add('popup__feature');
+      var dopClass = 'popup__feature--' + array[i];
+      feature.classList.add(dopClass);
+      fragment.appendChild(feature);
+    }
+
+    return fragment;
+  };
+
+  var setPhotos = function (array) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < array.lenght; i++) {
+      var photo = document.createElement('img');
+      photo.classList.add('popup__photo');
+      photo.src = array[i];
+      photo.width = '40';
+      photo.height = '40';
+      fragment.appendChild(photo);
+    }
+
+    return fragment;
+  };
+
+  var closePopup = function () {
+    window.card.remove();
+    document.removeEventListener('keydown', onEscPress);
+  };
+
+  var onEscPress = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      closePopup();
+    }
+  };
 
   window.card = {
     render: function (item) {
@@ -36,18 +77,39 @@
       cardTime.textContent = 'Заезд после ' + item.offer.checkin + ', выезд до ' + item.offer.checkout;
 
       var cardFeatures = card.querySelector('.popup__features');
-      cardFeatures.textContent = item.offer.features;
+      cardFeatures.appendChild(setFeatures(item.offer.features));
 
       var cardDescription = card.querySelector('.popup__description');
       cardDescription.textContent = item.offer.description;
 
       var cardPhotos = card.querySelector('.popup__photos');
-      cardPhotos.textContent = item.offer.photos;
+      cardPhotos.appendChild(setPhotos(item.offer.photos));
 
       var cardAvatar = card.querySelector('.popup__avatar');
       cardAvatar.src = item.author.avatar;
 
       return card;
+    },
+
+    remove: function () {
+      var card = document.querySelector('.map__card');
+      if (card) {
+        card.remove();
+      }
+      var mapPinActive = document.querySelector('.map__pin--active');
+      if (mapPinActive) {
+        mapPinActive.classList.remove('map__pin--active');
+      }
+    },
+
+    showCard: function (item) {
+      var cardItem = window.card.render(item);
+      map.insertBefore(cardItem, mapFiltersContainer);
+      document.addEventListener('keydown', onEscPress);
+      var popupClose = document.querySelector('.popup__close');
+      popupClose.addEventListener('click', function () {
+        closePopup();
+      });
     }
   };
 
