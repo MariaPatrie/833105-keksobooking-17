@@ -43,6 +43,7 @@
   var activeMap = function () {
     window.utils.showElement(map, 'map--faded');
     window.utils.showElement(adForm, 'ad-form--disabled');
+    window.dialogForm.onTypeSelect();
   };
 
   var pinListener = function (item, adress) {
