@@ -23,12 +23,12 @@
       .querySelector('.map__pin');
   var similarListElement = document.querySelector('.map__pins');
   var mapMainPin = document.querySelector('.map__pin--main');
-  var adTypeSelect = document.getElementById('type');
-  var adTimeIn = document.getElementById('timein');
-  var adTimeOut = document.getElementById('timeout');
-  var adHousingTypeSelector = document.getElementById('housing-type');
-  var adRooms = document.getElementById('room_number');
-  var adGuests = document.getElementById('capacity');
+  var adTypeSelect = document.querySelector('#type');
+  var adTimeIn = document.querySelector('#timein');
+  var adTimeOut = document.querySelector('#timeout');
+  var adHousingTypeSelector = document.querySelector('#housing-type');
+  var adRooms = document.querySelector('#room_number');
+  var adGuests = document.querySelector('#capacity');
 
   var adForm = document.querySelector('.ad-form');
   var adFieldset = adForm.querySelectorAll('.fieldset');
@@ -44,6 +44,18 @@
     window.utils.showElement(map, 'map--faded');
     window.utils.showElement(adForm, 'ad-form--disabled');
     window.dialogForm.onTypeSelect();
+    window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
+    var selectGuests = adGuests.options[adGuests.selectedIndex];
+    if (selectGuests.disabled = true) {
+      for (var i = 0; i < adGuests.length; i++){
+        var elGuests = adGuests.options[i];
+        if (elGuests.disabled != true) {
+         // adGuests.selectedIndex = i;
+          adGuests.options[i].selected = true;
+          break;
+        }
+      }
+    };
   };
 
   var pinListener = function (item, adress) {
@@ -189,4 +201,25 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
+  window.map = {
+    deactiveMap: function () {
+      window.utils.hideElement(map, 'map--faded');
+      adTypeSelect.removeEventListener('change', window.dialogForm.onTypeSelect);
+      adTimeIn.removeEventListener('change', function () {
+        window.dialogForm.onTimeSelect(adTimeIn, adTimeOut);
+      });
+      adTimeOut.removeEventListener('change', function () {
+        window.dialogForm.onTimeSelect(adTimeOut, adTimeIn);
+      });
+      adRooms.removeEventListener('change', function () {
+        window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
+      });
+      adHousingTypeSelector.removeEventListener('change', onChangeHousingTypeFilter);
+    },
+    removeAdresses: function () {
+      adresses.forEach(function (adress) {
+        adress.remove();
+      });
+    }
+  };
 })();

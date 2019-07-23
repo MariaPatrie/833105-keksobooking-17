@@ -23,8 +23,8 @@
   var mapSelect = mapFiltersForm.querySelectorAll('.select');
   var mapFieldset = mapFiltersForm.querySelectorAll('.fieldset');
 
-  var adTypeSelect = document.getElementById('type');
-  var adPrice = document.getElementById('price');
+  var adTypeSelect = document.querySelector('#type');
+  var adPrice = document.querySelector('#price');
 
   var setDisabledAttribute = function (array) {
     for (var i = 0; i < array.length; i++) {
@@ -106,6 +106,12 @@
   disableForm();
 
   var onLoadHandler = function () {
+    adForm.classList.add('ad-form--disabled');
+
+    disableForm();
+    window.map.deactiveMap();
+    window.map.removeAdresses();
+
     window.message.showSuccess();
   };
 

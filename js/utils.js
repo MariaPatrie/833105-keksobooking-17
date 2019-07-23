@@ -6,6 +6,9 @@
     showElement: function (item, className) {
       item.classList.remove(className);
     },
+    hideElement: function (item, className) {
+      item.classList.add(className);
+    },
     getRandomInt: function (min, max) {
       return Math.floor(Math.random() * (max - min)) + min;
     },
