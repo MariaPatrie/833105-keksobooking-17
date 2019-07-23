@@ -50,8 +50,8 @@
       for (var i = 0; i < adGuests.length; i++){
         var elGuests = adGuests.options[i];
         if (elGuests.disabled != true) {
-         // adGuests.selectedIndex = i;
           adGuests.options[i].selected = true;
+          adGuests.setCustomValidity('');
           break;
         }
       }
