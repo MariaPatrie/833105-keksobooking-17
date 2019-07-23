@@ -46,16 +46,16 @@
     window.dialogForm.onTypeSelect();
     window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
     var selectGuests = adGuests.options[adGuests.selectedIndex];
-    if (selectGuests.disabled = true) {
-      for (var i = 0; i < adGuests.length; i++){
+    if (selectGuests.disabled === true) {
+      for (var i = 0; i < adGuests.length; i++) {
         var elGuests = adGuests.options[i];
-        if (elGuests.disabled != true) {
+        if (elGuests.disabled !== true) {
           adGuests.options[i].selected = true;
           adGuests.setCustomValidity('');
           break;
         }
       }
-    };
+    }
   };
 
   var pinListener = function (item, adress) {
