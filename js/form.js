@@ -108,9 +108,9 @@
   var onLoadHandler = function () {
     adForm.classList.add('ad-form--disabled');
 
-    disableForm();
-    window.map.deactiveMap();
-    window.map.removeAdresses();
+    // disableForm();
+    // window.map.deactiveMap();
+    // window.map.removeAdresses();
 
     window.message.showSuccess();
   };

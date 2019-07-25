@@ -40,9 +40,7 @@
   var isActive = false;
   var adresses = [];
 
-  var activeMap = function () {
-    window.utils.showElement(map, 'map--faded');
-    window.utils.showElement(adForm, 'ad-form--disabled');
+  var showPage = function () {
     window.dialogForm.onTypeSelect();
     window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
     var selectGuests = adGuests.options[adGuests.selectedIndex];
@@ -56,6 +54,13 @@
         }
       }
     }
+  };
+
+  showPage();
+
+  var activeMap = function () {
+    window.utils.showElement(map, 'map--faded');
+    window.utils.showElement(adForm, 'ad-form--disabled');
   };
 
   var pinListener = function (item, adress) {
