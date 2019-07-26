@@ -10,14 +10,21 @@
     PALACE: 10000
   };
 
+  var GuestsByRoom = {
+    1: ['1'],
+    2: ['1', '2'],
+    3: ['1', '2', '3'],
+    100: ['0']
+  };
+
   var adForm = document.querySelector('.ad-form');
   var adFieldset = adForm.querySelectorAll('.fieldset');
   var mapFiltersForm = document.querySelector('.map__filters');
   var mapSelect = mapFiltersForm.querySelectorAll('.select');
   var mapFieldset = mapFiltersForm.querySelectorAll('.fieldset');
 
-  var adTypeSelect = document.getElementById('type');
-  var adPrice = document.getElementById('price');
+  var adTypeSelect = document.querySelector('#type');
+  var adPrice = document.querySelector('#price');
 
   var setDisabledAttribute = function (array) {
     for (var i = 0; i < array.length; i++) {
@@ -75,12 +82,36 @@
       }
 
       return filteredArray;
+    },
+    onRoomsGuestsSelect: function (adGuests, roomsValue) {
+      var countGuests = GuestsByRoom[roomsValue];
+      var optionsGuests = adGuests.querySelectorAll('option');
+
+      optionsGuests.forEach(function (option) {
+        option.disabled = countGuests.indexOf(option.value) === -1;
+      });
+
+      if (countGuests.indexOf(adGuests.value) === -1) {
+        adGuests.setCustomValidity('Укажите другое количество гостей');
+      }
+
+      adGuests.addEventListener('change', function () {
+        if (countGuests.indexOf(adGuests.value) !== -1) {
+          adGuests.setCustomValidity('');
+        }
+      });
     }
   };
 
   disableForm();
 
   var onLoadHandler = function () {
+    adForm.classList.add('ad-form--disabled');
+
+    // disableForm();
+    // window.map.deactiveMap();
+    // window.map.removeAdresses();
+
     window.message.showSuccess();
   };
 
