@@ -31,7 +31,7 @@
       window.utils.showElement(window.dialogForm.adForm, 'ad-form--disabled');
       window.dialogForm.activateForm();
     },
-    activeMap: function () {
+    deactiveMap: function () {
       window.utils.hideElement(window.map.map, 'map--faded');
       window.utils.hideElement(window.dialogForm.adForm, 'ad-form--disabled');
 
