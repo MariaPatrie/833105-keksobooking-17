@@ -100,17 +100,24 @@
           adGuests.setCustomValidity('');
         }
       });
+    },
+    deactivatePage: function () {
+      adForm.reset();
+      mapFiltersForm.reset();
+      window.card.remove();
+
+      window.map.deactiveMap();
+      window.map.removeAdresses();
+      window.map.setMapMainPinPosition();
+      window.map.isActive = false;
     }
   };
 
   disableForm();
 
   var onLoadHandler = function () {
-    adForm.classList.add('ad-form--disabled');
-
-    // disableForm();
-    // window.map.deactiveMap();
-    // window.map.removeAdresses();
+    disableForm();
+    window.dialogForm.deactivatePage();
 
     window.message.showSuccess();
   };

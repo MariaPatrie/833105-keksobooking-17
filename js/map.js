@@ -6,13 +6,15 @@
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
 
-  var MAIN_PIN_SIZE = 65;
-  var MAIN_PIN_TAIL = 22;
-
   var DEFAULT_MAP_WIDTH = 1200;
   var MIN_X = 0;
   var MIN_Y = 130;
   var MAX_Y = 630;
+
+  var MAIN_PIN_SIZE = 65;
+  var MAIN_PIN_TAIL = 22;
+  var MAIN_PIN_X = (DEFAULT_MAP_WIDTH - MIN_X) / 2 + MIN_X;
+  var MAIN_PIN_Y = (MAX_Y - MIN_Y) / 2 + MIN_Y;
 
   var urlGet = 'https://js.dump.academy/keksobooking/data';
 
@@ -37,10 +39,9 @@
   var mapFieldset = mapFiltersForm.querySelectorAll('.fieldset');
   var addressInput = adForm.querySelector('#address');
 
-  var isActive = false;
   var adresses = [];
 
-  var showPage = function () {
+  var resetCountGuests = function () {
     window.dialogForm.onTypeSelect();
     window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
     var selectGuests = adGuests.options[adGuests.selectedIndex];
@@ -55,8 +56,6 @@
       }
     }
   };
-
-  showPage();
 
   var activeMap = function () {
     window.utils.showElement(map, 'map--faded');
@@ -148,10 +147,10 @@
   mapMainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
-    if (!isActive) {
+    if (!window.map.isActive) {
       activeMap();
       window.backend.load(urlGet, onLoadHandler, window.message.showError);
-      isActive = true;
+      window.map.isActive = true;
     }
 
     var startCoords = {
@@ -207,8 +206,11 @@
   });
 
   window.map = {
+    isActive: false,
     deactiveMap: function () {
       window.utils.hideElement(map, 'map--faded');
+      window.utils.hideElement(adForm, 'ad-form--disabled');
+
       adTypeSelect.removeEventListener('change', window.dialogForm.onTypeSelect);
       adTimeIn.removeEventListener('change', function () {
         window.dialogForm.onTimeSelect(adTimeIn, adTimeOut);
@@ -222,9 +224,21 @@
       adHousingTypeSelector.removeEventListener('change', onChangeHousingTypeFilter);
     },
     removeAdresses: function () {
-      adresses.forEach(function (adress) {
-        adress.remove();
-      });
+      var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+      for (var i = 0; i < pins.length; i++) {
+        var pin = pins[i];
+        pin.remove();
+      }
+    },
+    setMapMainPinPosition: function () {
+      mapMainPin.style.top = setTopCoords(MAIN_PIN_Y);
+      mapMainPin.style.left = setLeftCoords(MAIN_PIN_X);
+      addressInput.value = (MAIN_PIN_X + MAIN_PIN_SIZE / 2) + ', ' + (MAIN_PIN_Y + MAIN_PIN_SIZE + MAIN_PIN_TAIL);
+      addressInput.value = getElementCoords(mapMainPin, MAIN_PIN_SIZE, (MAIN_PIN_SIZE + MAIN_PIN_TAIL));
+      resetCountGuests();
     }
   };
+
+  window.map.setMapMainPinPosition();
+
 })();
