@@ -10,8 +10,6 @@
   var similarListElement = document.querySelector('.map__pins');
 
   var mapFiltersForm = document.querySelector('.map__filters');
-  var mapSelect = mapFiltersForm.querySelectorAll('select');
-  var mapFieldset = mapFiltersForm.querySelectorAll('fieldset');
 
   var adTypeSelect = document.querySelector('select[name="type"]');
   var adTimeIn = document.querySelector('select[name="timein"]');
@@ -83,7 +81,6 @@
     setMapMainPinPosition: function () {
       window.map.mapMainPin.style.top = window.map.setTopCoords(mainPinY);
       window.map.mapMainPin.style.left = window.map.setLeftCoords(mainPinX);
-      //window.dialogForm.addressInput.value = (mainPinX + window.constants.MAIN_PIN_SIZE / 2) + ', ' + (mainPinY + window.constants.MAIN_PIN_SIZE + window.constants.MAIN_PIN_TAIL);
       window.dialogForm.addressInput.value = window.map.getElementCoords(window.map.mapMainPin, window.constants.MAIN_PIN_SIZE, (window.constants.MAIN_PIN_SIZE + window.constants.MAIN_PIN_TAIL));
       resetCountGuests();
     },
