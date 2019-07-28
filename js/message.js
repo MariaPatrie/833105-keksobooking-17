@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
 
   var main = document.querySelector('main');
   var successPageTemplate = document.querySelector('#success')
@@ -19,7 +18,7 @@
   };
 
   var onEscPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
+    if (evt.keyCode === window.constants.ESC_KEYCODE) {
       closeModal();
     }
   };
