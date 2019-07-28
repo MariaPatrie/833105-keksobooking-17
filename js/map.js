@@ -31,20 +31,7 @@
       window.utils.showElement(window.dialogForm.adForm, 'ad-form--disabled');
       window.dialogForm.activateForm();
     },
-    deactiveMap: function () {
-      adTypeSelect.removeEventListener('change', window.dialogForm.onTypeSelect);
-      adTimeIn.removeEventListener('change', function () {
-        window.dialogForm.onTimeSelect(adTimeIn, adTimeOut);
-      });
-      adTimeOut.removeEventListener('change', function () {
-        window.dialogForm.onTimeSelect(adTimeOut, adTimeIn);
-      });
-      adRooms.removeEventListener('change', function () {
-        window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
-      });
-      adHousingTypeSelector.removeEventListener('change', onChangeHousingTypeFilter);
-    },
-    deactiveMap: function () {
+    activeMap: function () {
       window.utils.hideElement(window.map.map, 'map--faded');
       window.utils.hideElement(window.dialogForm.adForm, 'ad-form--disabled');
 
