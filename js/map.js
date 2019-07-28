@@ -9,8 +9,6 @@
       .querySelector('.map__pin');
   var similarListElement = document.querySelector('.map__pins');
 
-  var mapFiltersForm = document.querySelector('.map__filters');
-
   var adTypeSelect = document.querySelector('select[name="type"]');
   var adTimeIn = document.querySelector('select[name="timein"]');
   var adTimeOut = document.querySelector('select[name="timeout"]');
