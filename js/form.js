@@ -90,7 +90,7 @@
   disableForm();
 
   var resetButton = document.querySelector('.ad-form__reset');
-  resetButton.addEventListener('click',  function (evt) {
+  resetButton.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.dialogForm.adForm.reset();
     window.map.setMapMainPinPosition();
