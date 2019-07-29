@@ -15,13 +15,8 @@
       setPrice(window.constants.PRICE[adTypeSelect.value]);
     },
     onTimeSelect: function (timeIn, timeOut) {
-      if (timeIn.value === '12:00') {
-        timeOut.options[0].selected = true;
-      } else if (timeIn.value === '13:00') {
-        timeOut.options[1].selected = true;
-      } else if (timeIn.value === '14:00') {
-        timeOut.options[2].selected = true;
-      }
+      var timeInSelectedIndex = timeIn.options.selectedIndex;
+      timeOut.value = timeOut.options[timeInSelectedIndex].value;
     },
     onHousingTypeSelect: function (array, housingType, count) {
       var filteredArray = array.slice();
@@ -95,7 +90,11 @@
   disableForm();
 
   var resetButton = document.querySelector('.ad-form__reset');
-  resetButton.addEventListener('click', window.dialogForm.deactivatePage);
+  resetButton.addEventListener('click',  function (evt) {
+    evt.preventDefault();
+    window.dialogForm.adForm.reset();
+    window.map.setMapMainPinPosition();
+  });
 
   var onLoadHandler = function () {
     disableForm();
