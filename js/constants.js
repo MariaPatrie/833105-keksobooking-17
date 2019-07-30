@@ -3,7 +3,7 @@
 
   window.constants = {
 
-    ADRESS_COUNT: 5,
+    ADRESS_COUNT: 10,
     PIN_WIDTH: 50,
     PIN_HEIGHT: 70,
     DEFAULT_MAP_WIDTH: 1200,

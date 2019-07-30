@@ -18,20 +18,6 @@
       var timeInSelectedIndex = timeIn.options.selectedIndex;
       timeOut.value = timeOut.options[timeInSelectedIndex].value;
     },
-    onHousingTypeSelect: function (array, housingType, count) {
-      var filteredArray = array.slice();
-
-      if (housingType !== 'any') {
-        filteredArray = filteredArray.filter(function (it) {
-          return it.offer.type === housingType;
-        });
-      }
-      if (count >= 0) {
-        filteredArray = filteredArray.slice(0, count);
-      }
-
-      return filteredArray;
-    },
     onRoomsGuestsSelect: function (adGuests, roomsValue) {
       var countGuests = window.constants.GUESRS_BY_ROOM[roomsValue];
       var optionsGuests = adGuests.querySelectorAll('option');
