@@ -13,7 +13,7 @@
   var housingPrice;
   var housingGuests;
 
-  var housingFeaturesCheckedItems;
+  var housingFeaturesCheckedValue;
   var housingFeatures;
 
   var onHousingTypeSelect = function (it) {
