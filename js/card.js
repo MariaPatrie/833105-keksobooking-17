@@ -2,15 +2,6 @@
 
 (function () {
 
-  var ESC_KEYCODE = 27;
-  var PLACEMENT_TYPE = {
-    BUNGALO: 'Бунгало',
-    FLAT: 'Квартира',
-    HOUSE: 'Дом',
-    PALACE: 'Дворец'
-  };
-
-  var map = document.querySelector('.map');
   var mapFiltersContainer = document.querySelector('.map__filters-container');
   var similarCardTemplate = document.querySelector('#card')
     .content
@@ -31,7 +22,7 @@
 
   var setPhotos = function (array) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.lenght; i++) {
+    for (var i = 0; i < array.length; i++) {
       var photo = document.createElement('img');
       photo.classList.add('popup__photo');
       photo.src = array[i];
@@ -43,14 +34,14 @@
     return fragment;
   };
 
-  var closePopup = function () {
+  var closeCard = function () {
     window.card.remove();
     document.removeEventListener('keydown', onEscPress);
   };
 
   var onEscPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      closePopup();
+    if (evt.keyCode === window.constants.ESC_KEYCODE) {
+      closeCard();
     }
   };
 
@@ -68,7 +59,7 @@
       cardPrice.textContent = item.offer.price + ' ₽/ночь';
 
       var cardType = card.querySelector('.popup__type');
-      cardType.textContent = PLACEMENT_TYPE[item.offer.type.toUpperCase()];
+      cardType.textContent = window.constants.PLACEMENT_TYPE[item.offer.type.toUpperCase()];
 
       var cardGuest = card.querySelector('.popup__text--capacity');
       cardGuest.textContent = item.offer.rooms + ' комнаты для ' + item.offer.guests + ' гостей';
@@ -104,11 +95,11 @@
 
     showCard: function (item) {
       var cardItem = window.card.render(item);
-      map.insertBefore(cardItem, mapFiltersContainer);
+      window.map.map.insertBefore(cardItem, mapFiltersContainer);
       document.addEventListener('keydown', onEscPress);
       var popupClose = document.querySelector('.popup__close');
       popupClose.addEventListener('click', function () {
-        closePopup();
+        closeCard();
       });
     }
   };
