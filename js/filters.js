@@ -31,11 +31,11 @@
   var onHousingPriceSelect = function (it) {
     switch (housingPrice) {
       case 'middle':
-        return it.offer.price >= 10000 && it.offer.price <= 50000;
+        return it.offer.price >= window.constants.LOW && it.offer.price <= window.constants.HIGH;
       case 'low':
-        return it.offer.price < 10000;
+        return it.offer.price < window.constants.LOW;
       case 'high':
-        return it.offer.price > 50000;
+        return it.offer.price > window.constants.HIGH;
       default:
         return true;
     }

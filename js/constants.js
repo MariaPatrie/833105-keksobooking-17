@@ -3,6 +3,8 @@
 
   window.constants = {
 
+    ESC_KEYCODE: 27,
+
     ADRESS_COUNT: 5,
     PIN_WIDTH: 50,
     PIN_HEIGHT: 70,
@@ -12,6 +14,9 @@
     MAX_Y: 630,
     MAIN_PIN_SIZE: 65,
     MAIN_PIN_TAIL: 22,
+
+    LOW: 10000,
+    HIGH: 50000,
 
     PRICE: {
       bungalo: 0,
