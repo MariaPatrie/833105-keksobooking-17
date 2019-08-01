@@ -12,9 +12,10 @@
   var adTypeSelect = document.querySelector('select[name="type"]');
   var adTimeIn = document.querySelector('select[name="timein"]');
   var adTimeOut = document.querySelector('select[name="timeout"]');
-  var adHousingTypeSelector = document.querySelector('select[name="housing-type"]');
   var adRooms = document.querySelector('select[name="rooms"]');
   var adGuests = document.querySelector('select[name="capacity"]');
+
+  var mapFilters = document.querySelector('.map__filters');
 
   var adresses = [];
 
@@ -41,7 +42,7 @@
       adRooms.removeEventListener('change', function () {
         window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
       });
-      adHousingTypeSelector.removeEventListener('change', onChangeHousingTypeFilter);
+      mapFilters.removeEventListener('change', renderMapPinsDebounced);
     },
     removeAdresses: function () {
       var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
@@ -147,9 +148,11 @@
     });
   };
 
-  var onChangeHousingTypeFilter = function () {
-    var filteredAdresses = window.dialogForm.onHousingTypeSelect(adresses, adHousingTypeSelector.value, window.constants.ADRESS_COUNT);
+  var onChangeFilter = function () {
+    var filteredAdresses = window.filters.getFilteredData(adresses);
+    filteredAdresses = filteredAdresses.slice(0, window.constants.ADRESS_COUNT);
     clearMapPins();
+    window.card.remove();
     renderPins(filteredAdresses);
   };
 
@@ -163,7 +166,9 @@
   adRooms.addEventListener('change', function () {
     window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
   });
-  adHousingTypeSelector.addEventListener('change', onChangeHousingTypeFilter);
+
+  var renderMapPinsDebounced = window.debounce(onChangeFilter);
+  mapFilters.addEventListener('change', renderMapPinsDebounced);
 
   window.map.setMapMainPinPosition();
 

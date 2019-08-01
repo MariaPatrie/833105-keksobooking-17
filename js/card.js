@@ -9,7 +9,7 @@
 
   var setFeatures = function (array) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.lenght; i++) {
+    for (var i = 0; i < array.length; i++) {
       var feature = document.createElement('li');
       feature.classList.add('popup__feature');
       var dopClass = 'popup__feature--' + array[i];
