@@ -43,6 +43,7 @@
 
       window.map.deactiveMap();
       window.map.removeAdresses();
+      window.photos.deletePhotos();
       window.map.setMapMainPinPosition();
       window.map.isActive = false;
     }
@@ -79,6 +80,7 @@
   resetButton.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.dialogForm.adForm.reset();
+    window.photos.deletePhotos();
     window.map.setMapMainPinPosition();
   });
 
