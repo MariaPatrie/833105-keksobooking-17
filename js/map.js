@@ -167,8 +167,8 @@
     window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
   });
 
-  var renderMapPinsDebounced = window.debounce(onChangeFilter);
-  mapFilters.addEventListener('change', renderMapPinsDebounced);
+  var renderPinsOnMap = window.debounce(onChangeFilter);
+  mapFilters.addEventListener('change', renderPinsOnMap);
 
   window.map.setMapMainPinPosition();
 

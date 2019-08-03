@@ -50,7 +50,8 @@
   };
 
   photoChooser.addEventListener('change', function () {
-    var matches = Array.from(photoChooser.files).filter(checkedFileType);
+    //var matches = Array.from(photoChooser.files).filter(checkedFileType);
+    var matches = Array.prototype.slice(photoChooser.files).filter(checkedFileType);
     if (matches) {
       matches.forEach(loadPhoto);
     }

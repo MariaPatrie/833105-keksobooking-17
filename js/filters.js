@@ -43,7 +43,7 @@
 
   var onHousingFeaturesSelect = function (it) {
     return housingFeatures.every(function (feature) {
-      return it.offer.features.includes(feature);
+      return it.offer.features.indexOf(feature) !== -1;
     });
   };
 
@@ -54,7 +54,8 @@
       housingGuests = parseInt(housingGuestsSelector.value, 0);
       housingPrice = housingPriceSelector.value;
 
-      housingFeaturesCheckedValue = Array.from(mapFeatures.querySelectorAll('input:checked'));
+      //housingFeaturesCheckedValue = Array.from(mapFeatures.querySelectorAll('input:checked'));
+      housingFeaturesCheckedValue = Array.prototype.slice(mapFeatures.querySelectorAll('input:checked'));
       housingFeatures = housingFeaturesCheckedValue.map(function (it) {
         return it.value;
       });

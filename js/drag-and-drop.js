@@ -1,14 +1,14 @@
 'use strict';
 (function () {
 
-  var urlGet = 'https://js.dump.academy/keksobooking/data';
+  var URL_GET = 'https://js.dump.academy/keksobooking/data';
 
   window.map.mapMainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
     if (!window.map.isActive) {
       window.map.activeMap();
-      window.backend.load(urlGet, window.map.onLoadHandler, window.message.showError);
+      window.backend.load(URL_GET, window.map.onLoadHandler, window.message.showError);
       window.map.isActive = true;
     }
 

@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var PHOTO_WIDTH = '40';
+  var PHOTO_HEIGHT = '40';
 
   var mapFiltersContainer = document.querySelector('.map__filters-container');
   var similarCardTemplate = document.querySelector('#card')
@@ -26,8 +28,8 @@
       var photo = document.createElement('img');
       photo.classList.add('popup__photo');
       photo.src = array[i];
-      photo.width = '40';
-      photo.height = '40';
+      photo.width = PHOTO_WIDTH;
+      photo.height = PHOTO_HEIGHT;
       fragment.appendChild(photo);
     }
 

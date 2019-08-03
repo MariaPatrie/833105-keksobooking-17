@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var urlPost = 'https://js.dump.academy/keksobooking';
+  var URL_POST = 'https://js.dump.academy/keksobooking';
 
   window.dialogForm = {
     adForm: document.querySelector('.ad-form'),
@@ -97,6 +97,6 @@
 
   window.dialogForm.adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.upload(urlPost, new FormData(window.dialogForm.adForm), onLoadHandler, onErrorHandler);
+    window.backend.upload(URL_POST, new FormData(window.dialogForm.adForm), onLoadHandler, onErrorHandler);
   });
 })();
