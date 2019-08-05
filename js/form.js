@@ -21,12 +21,14 @@
     onRoomsGuestsSelect: function (adGuests, roomsValue) {
       var countGuests = window.constants.GUESRS_BY_ROOM[roomsValue];
       var optionsGuests = adGuests.querySelectorAll('option');
+      var disabledValue = false;
 
       optionsGuests.forEach(function (option) {
-        option.disabled = countGuests.indexOf(option.value) === -1;
+        disabledValue = countGuests.indexOf(option.value) === -1;
+        option.disabled = disabledValue;
       });
 
-      if (countGuests.indexOf(adGuests.value) === -1) {
+      if (disabledValue) {
         adGuests.setCustomValidity('Укажите другое количество гостей');
       }
 
@@ -45,6 +47,7 @@
       window.map.removeAdresses();
       window.photos.deletePhotos();
       window.map.setMapMainPinPosition();
+      window.map.resetCountGuests();
       window.map.isActive = false;
     }
   };
@@ -82,6 +85,7 @@
     window.dialogForm.adForm.reset();
     window.photos.deletePhotos();
     window.map.setMapMainPinPosition();
+    window.map.resetCountGuests();
   });
 
   var onLoadHandler = function () {

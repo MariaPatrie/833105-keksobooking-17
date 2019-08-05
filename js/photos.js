@@ -7,11 +7,11 @@
   var PHOTO_ALT = 'Фото жилья';
   var AVATAR_SRC = 'img/muffin-grey.svg';
 
-  var avatarChooser = document.querySelector('.ad-form__field input[type=file]');
-  var previewAvatar = document.querySelector('.ad-form-header__preview');
+  var avatarChooser = window.dialogForm.adForm.querySelector('.ad-form__field input[type=file]');
+  var previewAvatar = window.dialogForm.adForm.querySelector('.ad-form-header__preview');
 
-  var photoChooser = document.querySelector('.ad-form__upload input[type=file]');
-  var previewPhoto = document.querySelector('.ad-form__photo');
+  var photoChooser = window.dialogForm.adForm.querySelector('.ad-form__upload input[type=file]');
+  var previewPhoto = window.dialogForm.adForm.querySelector('.ad-form__photo');
 
   var checkedFileType = function (file) {
     return FILE_TYPES.some(function (it) {
@@ -50,8 +50,8 @@
   };
 
   photoChooser.addEventListener('change', function () {
-    //var matches = Array.from(photoChooser.files).filter(checkedFileType);
-    var matches = Array.prototype.slice(photoChooser.files).filter(checkedFileType);
+    var files = window.utils.prepareFilesArray(photoChooser.files);
+    var matches = files.filter(checkedFileType);
     if (matches) {
       matches.forEach(loadPhoto);
     }

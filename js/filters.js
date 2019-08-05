@@ -54,8 +54,7 @@
       housingGuests = parseInt(housingGuestsSelector.value, 0);
       housingPrice = housingPriceSelector.value;
 
-      //housingFeaturesCheckedValue = Array.from(mapFeatures.querySelectorAll('input:checked'));
-      housingFeaturesCheckedValue = Array.prototype.slice(mapFeatures.querySelectorAll('input:checked'));
+      housingFeaturesCheckedValue = window.utils.prepareFilesArray(mapFeatures.querySelectorAll('input:checked'));
       housingFeatures = housingFeaturesCheckedValue.map(function (it) {
         return it.value;
       });

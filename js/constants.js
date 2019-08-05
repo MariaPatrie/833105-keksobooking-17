@@ -14,6 +14,7 @@
     MAX_Y: 630,
     MAIN_PIN_SIZE: 65,
     MAIN_PIN_TAIL: 22,
+    MAIN_PIN_FULL_SIZE: 87,
 
     LOW: 10000,
     HIGH: 50000,

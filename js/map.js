@@ -42,7 +42,7 @@
       adRooms.removeEventListener('change', function () {
         window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
       });
-      mapFilters.removeEventListener('change', renderMapPinsDebounced);
+      mapFilters.removeEventListener('change', onRenderPinsMapDebounced);
     },
     removeAdresses: function () {
       var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
@@ -53,7 +53,10 @@
     },
     setTopCoords: function (position) {
       var coodsY;
-      if (position >= (window.constants.MIN_Y - window.constants.MAIN_PIN_SIZE) && position <= (window.constants.MAX_Y - window.constants.MAIN_PIN_SIZE - window.constants.MAIN_PIN_TAIL)) {
+      var coodsMinY = window.constants.MIN_Y - window.constants.MAIN_PIN_SIZE;
+      var coodsMaxY = window.constants.MAX_Y - window.constants.MAIN_PIN_SIZE - window.constants.MAIN_PIN_TAIL;
+
+      if (position >= coodsMinY && position <= coodsMaxY) {
         coodsY = position + 'px';
       } else if (position < window.constants.MIN_Y) {
         coodsY = (window.constants.MIN_Y - window.constants.MAIN_PIN_SIZE - window.constants.MAIN_PIN_TAIL) + 'px';
@@ -64,12 +67,15 @@
     },
     setLeftCoords: function (position) {
       var coodsX;
-      if (position >= window.constants.MIN_X && position <= (maxWidth - window.constants.MAIN_PIN_SIZE)) {
+      var coodsMinX = window.constants.MIN_X;
+      var coodsMaxX = maxWidth - window.constants.MAIN_PIN_SIZE;
+
+      if (position >= coodsMinX && position <= coodsMaxX) {
         coodsX = position + 'px';
       } else if (position < window.constants.MIN_X) {
         coodsX = window.constants.MIN_X + 'px';
-      } else if (position > (maxWidth - window.constants.MAIN_PIN_SIZE)) {
-        coodsX = (maxWidth - window.constants.MAIN_PIN_SIZE) + 'px';
+      } else if (position > coodsMaxX) {
+        coodsX = coodsMaxX + 'px';
       }
       return coodsX;
     },
@@ -77,31 +83,29 @@
       return Math.round((item.offsetLeft + width / 2)) +
       ', ' + Math.round((item.offsetTop + height));
     },
-    setMapMainPinPosition: function () {
-      window.map.mapMainPin.style.top = window.map.setTopCoords(mainPinY);
-      window.map.mapMainPin.style.left = window.map.setLeftCoords(mainPinX);
-      window.dialogForm.addressInput.value = window.map.getElementCoords(window.map.mapMainPin, window.constants.MAIN_PIN_SIZE, (window.constants.MAIN_PIN_SIZE + window.constants.MAIN_PIN_TAIL));
-      resetCountGuests();
+    setMapMainPinPosition: function (x, y) {
+      window.map.mapMainPin.style.left = window.map.setLeftCoords(x);
+      window.map.mapMainPin.style.top = window.map.setTopCoords(y);
+      window.dialogForm.addressInput.value = window.map.getElementCoords(window.map.mapMainPin, window.constants.MAIN_PIN_SIZE, window.constants.MAIN_PIN_FULL_SIZE);
+    },
+    resetCountGuests: function () {
+      window.dialogForm.onTypeSelect();
+      window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
+      var selectGuests = adGuests.options[adGuests.selectedIndex];
+      if (selectGuests.disabled) {
+        for (var i = 0; i < adGuests.length; i++) {
+          var elGuests = adGuests.options[i];
+          if (!elGuests.disabled) {
+            adGuests.options[i].selected = true;
+            adGuests.setCustomValidity('');
+            break;
+          }
+        }
+      }
     },
     onLoadHandler: function (array) {
       adresses = array;
       renderPins(array);
-    }
-  };
-
-  var resetCountGuests = function () {
-    window.dialogForm.onTypeSelect();
-    window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
-    var selectGuests = adGuests.options[adGuests.selectedIndex];
-    if (selectGuests.disabled) {
-      for (var i = 0; i < adGuests.length; i++) {
-        var elGuests = adGuests.options[i];
-        if (!elGuests.disabled) {
-          adGuests.options[i].selected = true;
-          adGuests.setCustomValidity('');
-          break;
-        }
-      }
     }
   };
 
@@ -167,9 +171,10 @@
     window.dialogForm.onRoomsGuestsSelect(adGuests, adRooms.value);
   });
 
-  var renderPinsOnMap = window.debounce(onChangeFilter);
-  mapFilters.addEventListener('change', renderPinsOnMap);
+  var onRenderPinsMapDebounced = window.debounce(onChangeFilter);
+  mapFilters.addEventListener('change', onRenderPinsMapDebounced);
 
-  window.map.setMapMainPinPosition();
+  window.map.setMapMainPinPosition(mainPinX, mainPinY);
+  window.map.resetCountGuests();
 
 })();
