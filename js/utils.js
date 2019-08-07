@@ -8,9 +8,6 @@
     },
     hideElement: function (item, className) {
       item.classList.add(className);
-    },
-    prepareFilesArray: function (files) {
-      return Object.values(files);
     }
   };
 

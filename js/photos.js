@@ -50,11 +50,8 @@
   };
 
   photoChooser.addEventListener('change', function () {
-    var files = window.utils.prepareFilesArray(photoChooser.files);
-    var matches = files.filter(checkedFileType);
-    if (matches) {
-      matches.forEach(loadPhoto);
-    }
+    var file = photoChooser.files[0];
+    loadPhoto(file);
   });
 
   window.photos = {

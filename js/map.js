@@ -9,11 +9,11 @@
       .querySelector('.map__pin');
   var similarListElement = document.querySelector('.map__pins');
 
-  var adTypeSelect = document.querySelector('select[name="type"]');
-  var adTimeIn = document.querySelector('select[name="timein"]');
-  var adTimeOut = document.querySelector('select[name="timeout"]');
-  var adRooms = document.querySelector('select[name="rooms"]');
-  var adGuests = document.querySelector('select[name="capacity"]');
+  var adTypeSelect = window.dialogForm.adForm.querySelector('select[name="type"]');
+  var adTimeIn = window.dialogForm.adForm.querySelector('select[name="timein"]');
+  var adTimeOut = window.dialogForm.adForm.querySelector('select[name="timeout"]');
+  var adRooms = window.dialogForm.adForm.querySelector('select[name="rooms"]');
+  var adGuests = window.dialogForm.adForm.querySelector('select[name="capacity"]');
 
   var mapFilters = document.querySelector('.map__filters');
 

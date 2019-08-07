@@ -2,11 +2,19 @@
 
 (function () {
 
-  var housingTypeSelector = document.querySelector('select[name="housing-type"]');
-  var housingRoomsSelector = document.querySelector('select[name="housing-rooms"]');
-  var housingGuestsSelector = document.querySelector('select[name="housing-guests"]');
-  var housingPriceSelector = document.querySelector('select[name="housing-price"]');
-  var mapFeatures = document.querySelector('.map__features');
+  var mapFiltersForm = document.querySelector('.map__filters');
+  var housingTypeSelector = mapFiltersForm.querySelector('select[name="housing-type"]');
+  var housingRoomsSelector = mapFiltersForm.querySelector('select[name="housing-rooms"]');
+  var housingGuestsSelector = mapFiltersForm.querySelector('select[name="housing-guests"]');
+  var housingPriceSelector = mapFiltersForm.querySelector('select[name="housing-price"]');
+  var mapFeatures = mapFiltersForm.querySelector('.map__features');
+
+  var filterWifi = mapFeatures.querySelector('#filter-wifi');
+  var filterDishwasher = mapFeatures.querySelector('#filter-dishwasher');
+  var filterParking = mapFeatures.querySelector('#filter-parking');
+  var filterWasher = mapFeatures.querySelector('#filter-washer');
+  var filterElevator = mapFeatures.querySelector('#filter-elevator');
+  var filterConditioner = mapFeatures.querySelector('#filter-conditioner');
 
   var housingType;
   var housingRooms;
@@ -41,10 +49,17 @@
     }
   };
 
+  var checkFeatures = function (input, it) {
+    return (!input.checked) || (it.offer.features.indexOf(input.value) !== -1);
+  };
+
   var onHousingFeaturesSelect = function (it) {
-    return housingFeatures.every(function (feature) {
-      return it.offer.features.indexOf(feature) !== -1;
-    });
+    return checkFeatures(filterWifi, it) &&
+           checkFeatures(filterDishwasher, it) &&
+           checkFeatures(filterParking, it) &&
+           checkFeatures(filterWasher, it) &&
+           checkFeatures(filterElevator, it) &&
+           checkFeatures(filterConditioner, it);
   };
 
   window.filters = {
@@ -53,11 +68,6 @@
       housingRooms = parseInt(housingRoomsSelector.value, 0);
       housingGuests = parseInt(housingGuestsSelector.value, 0);
       housingPrice = housingPriceSelector.value;
-
-      housingFeaturesCheckedValue = window.utils.prepareFilesArray(mapFeatures.querySelectorAll('input:checked'));
-      housingFeatures = housingFeaturesCheckedValue.map(function (it) {
-        return it.value;
-      });
 
       return adresses
         .filter(onHousingTypeSelect)
