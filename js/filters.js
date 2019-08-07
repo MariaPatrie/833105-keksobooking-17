@@ -21,9 +21,6 @@
   var housingPrice;
   var housingGuests;
 
-  var housingFeaturesCheckedValue;
-  var housingFeatures;
-
   var onHousingTypeSelect = function (it) {
     return housingType === 'any' || it.offer.type === housingType;
   };
